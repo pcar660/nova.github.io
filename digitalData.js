@@ -12,10 +12,10 @@ function generateUserData() {
     const timestamp = new Date().getTime();
     username = `novaid${timestamp}`;
     email = `${username}@yopmail.com`;
-    firstName = "NovaWeb01";
-    lastName = "Smith";
+    firstName = generateFirstName();
+    lastName = generateLastName();
     lastLogin = new Date().toISOString();
-    age = 30;
+    age = generateAge();
     phoneNumber = generatePhoneNumber();
 
     const userData = {
@@ -30,7 +30,27 @@ function generateUserData() {
 
     console.log(userData);
     displayUserData(userData);
- 
+}
+
+function generateFirstName() {
+    const firstNames = ["NovaWeb01", "John", "Jane", "Alex", "Chris"];
+    return firstNames[Math.floor(Math.random() * firstNames.length)];
+}
+
+function generateLastName() {
+    const lastNames = ["Smith", "Doe", "Johnson", "Brown", "Davis"];
+    return lastNames[Math.floor(Math.random() * lastNames.length)];
+}
+
+function generateAge() {
+    return Math.floor(Math.random() * 60) + 18; // Random age between 18 and 77
+}
+
+function generatePhoneNumber() {
+    const areaCode = Math.floor(Math.random() * 900) + 100; // 100-999
+    const centralOfficeCode = Math.floor(Math.random() * 900) + 100; // 100-999
+    const lineNumber = Math.floor(Math.random() * 10000); // 0000-9999
+    return `${areaCode}-${centralOfficeCode}-${lineNumber.toString().padStart(4, '0')}`;
 }
 
 function generatePhoneNumber() {
