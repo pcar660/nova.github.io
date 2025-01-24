@@ -1,6 +1,5 @@
 // digitalData.js
 
-
 // Run the generateUserData function to ensure user data is generated first
 generateUserData();
 
