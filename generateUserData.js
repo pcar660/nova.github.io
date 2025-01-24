@@ -77,8 +77,7 @@ function stopDynamicGeneration() {
 }
 
 var intervalId;
-// Call generateUserData before the page load function
-generateUserData();
+
 
 document.addEventListener('DOMContentLoaded', function() {
     startDynamicGeneration(); // Start dynamic generation by default
