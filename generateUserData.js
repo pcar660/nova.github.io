@@ -1,7 +1,7 @@
 // generateUserData.js
 
 var username, email, firstName, lastName, age, lastLogin;
-var dynamicGeneration = false; // Control variable
+var dynamicGeneration = true; // Control variable
 
 function generateUserData() {
     const timestamp = new Date().getTime();
@@ -23,6 +23,7 @@ function generateUserData() {
 
     console.log(userData);
     displayUserData(userData);
+    sendAdobeEvent();
 }
 
 function displayUserData(userData) {
@@ -34,12 +35,29 @@ function displayUserData(userData) {
     document.getElementById('age').innerText = userData.age;
 }
 
+function sendAdobeEvent() {
+    if (window._satellite) {
+        window._satellite.track('userProfileGenerated', {
+            username: username,
+            email: email,
+            firstName: firstName,
+            lastName: lastName,
+            lastLogin: lastLogin,
+            age: age
+        });
+        console.log('Adobe event sent');
+    } else {
+        console.log('Adobe Launch not available');
+    }
+}
+
 function startDynamicGeneration() {
     dynamicGeneration = true;
     generateUserData(); // Generate once immediately
     intervalId = setInterval(function() {
         if (dynamicGeneration) {
             generateUserData();
+            location.reload(); // Reload the page
         }
     }, 10000); // 10000 milliseconds = 10 seconds
 }
