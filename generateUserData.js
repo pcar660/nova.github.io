@@ -1,6 +1,6 @@
 // generateUserData.js
 
-var username, email, firstName, lastName, age, lastLogin;
+var username, email, firstName, lastName, age, lastLogin, phoneNumber;
 var dynamicGeneration = true; // Control variable set to true by default
 
 function generateUserData() {
@@ -11,6 +11,7 @@ function generateUserData() {
     lastName = "Smith";
     lastLogin = new Date().toISOString();
     age = 30;
+    phoneNumber = generatePhoneNumber();
 
     const userData = {
         username: username,
@@ -18,12 +19,20 @@ function generateUserData() {
         firstName: firstName,
         lastName: lastName,
         lastLogin: lastLogin,
-        age: age
+        age: age,
+        phoneNumber: phoneNumber
     };
 
     console.log(userData);
     displayUserData(userData);
     sendAdobeEvent();
+}
+
+function generatePhoneNumber() {
+    const areaCode = Math.floor(Math.random() * 900) + 100; // 100-999
+    const centralOfficeCode = Math.floor(Math.random() * 900) + 100; // 100-999
+    const lineNumber = Math.floor(Math.random() * 10000); // 0000-9999
+    return `${areaCode}-${centralOfficeCode}-${lineNumber.toString().padStart(4, '0')}`;
 }
 
 function displayUserData(userData) {
@@ -33,6 +42,7 @@ function displayUserData(userData) {
     document.getElementById('lastName').innerText = userData.lastName;
     document.getElementById('lastLogin').innerText = userData.lastLogin;
     document.getElementById('age').innerText = userData.age;
+    document.getElementById('phoneNumber').innerText = userData.phoneNumber;
 }
 
 function sendAdobeEvent() {
@@ -43,7 +53,8 @@ function sendAdobeEvent() {
             firstName: firstName,
             lastName: lastName,
             lastLogin: lastLogin,
-            age: age
+            age: age,
+            phoneNumber: phoneNumber
         });
         console.log('Adobe event sent');
     } else {
