@@ -77,6 +77,7 @@ window.digitalData = {
             "firstName": firstName,
             "lastName": lastName,
             "age": age,
+            "phoneNumber": phoneNumber,
             "location": "New York",
             "isSubscribed": true,
             "lastLogin": lastLogin,
