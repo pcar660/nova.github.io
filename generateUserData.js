@@ -1,4 +1,4 @@
-// generateUserData.js
+/ generateUserData.js
 
 var username, email, firstName, lastName, age, lastLogin;
 var dynamicGeneration = false; // Control variable
@@ -50,4 +50,7 @@ function stopDynamicGeneration() {
 }
 
 var intervalId;
-generateUserData(); // Call once on page load
+
+document.addEventListener('DOMContentLoaded', function() {
+    generateUserData(); // Call once on page load
+});
