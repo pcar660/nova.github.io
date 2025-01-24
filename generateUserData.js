@@ -1,7 +1,7 @@
 // generateUserData.js
 
 var username, email, firstName, lastName, age, lastLogin;
-var dynamicGeneration = true; // Control variable
+var dynamicGeneration = true; // Control variable set to true by default
 
 function generateUserData() {
     const timestamp = new Date().getTime();
@@ -51,15 +51,28 @@ function sendAdobeEvent() {
     }
 }
 
+function deleteCookies() {
+    const cookies = document.cookie.split(';');
+    cookies.forEach(cookie => {
+        const [name] = cookie.split('=');
+        document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;`;
+    });
+    console.log('All cookies deleted');
+}
+
 function startDynamicGeneration() {
     dynamicGeneration = true;
     generateUserData(); // Generate once immediately
     intervalId = setInterval(function() {
         if (dynamicGeneration) {
             generateUserData();
-            location.reload(); // Reload the page
+            setTimeout(readCookies, 10000); // Read cookies after 10 seconds
+            setTimeout(function() {
+                deleteCookies(); // Delete cookies before reloading the page
+                location.reload(); // Reload the page after 20 seconds
+            }, 20000);
         }
-    }, 10000); // 10000 milliseconds = 10 seconds
+    }, 20000); // 20000 milliseconds = 20 seconds
 }
 
 function stopDynamicGeneration() {
@@ -71,4 +84,5 @@ var intervalId;
 
 document.addEventListener('DOMContentLoaded', function() {
     generateUserData(); // Call once on page load
+    startDynamicGeneration(); // Start dynamic generation by default
 });
