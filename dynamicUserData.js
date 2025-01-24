@@ -1,6 +1,7 @@
 // dynamicUserData.js
 
 var username, email, firstName, lastName, lastLogin, age;
+var dynamicGeneration = false; // Control variable
 
 function generateUserData() {
     const timestamp = new Date().getTime();
@@ -11,19 +12,42 @@ function generateUserData() {
     lastLogin = new Date().toISOString();
     age = 30;
 
-    console.log({
+    const userData = {
         username: username,
         email: email,
         firstName: firstName,
         lastName: lastName,
         lastLogin: lastLogin,
         age: age
-    });
+    };
+
+    console.log(userData);
+    displayUserData(userData);
 }
 
-generateUserData(); // Call once on page load
+function displayUserData(userData) {
+    document.getElementById('username').innerText = userData.username;
+    document.getElementById('email').innerText = userData.email;
+    document.getElementById('firstName').innerText = userData.firstName;
+    document.getElementById('lastName').innerText = userData.lastName;
+    document.getElementById('lastLogin').innerText = userData.lastLogin;
+    document.getElementById('age').innerText = userData.age;
+}
 
-setInterval(function() {
-    generateUserData();
-    location.reload();
-}, 10000); // 10000 milliseconds = 10 seconds
+function startDynamicGeneration() {
+    dynamicGeneration = true;
+    generateUserData(); // Generate once immediately
+    intervalId = setInterval(function() {
+        if (dynamicGeneration) {
+            generateUserData();
+        }
+    }, 10000); // 10000 milliseconds = 10 seconds
+}
+
+function stopDynamicGeneration() {
+    dynamicGeneration = false;
+    clearInterval(intervalId);
+}
+
+var intervalId;
+generateUserData(); // Call once on page load
