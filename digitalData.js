@@ -46,12 +46,6 @@ function generateAge() {
     return Math.floor(Math.random() * 60) + 18; // Random age between 18 and 77
 }
 
-function generatePhoneNumber() {
-    const areaCode = Math.floor(Math.random() * 900) + 100; // 100-999
-    const centralOfficeCode = Math.floor(Math.random() * 900) + 100; // 100-999
-    const lineNumber = Math.floor(Math.random() * 10000); // 0000-9999
-    return `${areaCode}-${centralOfficeCode}-${lineNumber.toString().padStart(4, '0')}`;
-}
 
 function generatePhoneNumber() {
     const areaCode = Math.floor(Math.random() * 900) + 100; // 100-999
