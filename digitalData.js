@@ -1,5 +1,11 @@
 // digitalData.js
 
+// Ensure generateUserData is called before setting digitalData
+import { generateUserData } from './generateUserData.js';
+
+// Run the generateUserData function to ensure user data is generated first
+generateUserData();
+
 window.digitalData = {
   "page": {
     "pageInfo": {
