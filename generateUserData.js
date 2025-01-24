@@ -1,4 +1,4 @@
-/ generateUserData.js
+// generateUserData.js
 
 var username, email, firstName, lastName, age, lastLogin;
 var dynamicGeneration = false; // Control variable
