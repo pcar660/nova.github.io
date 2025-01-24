@@ -43,4 +43,9 @@ function refreshCookies() {
 }
 
 // Read cookies on page load
-readCookies();
+document.addEventListener('DOMContentLoaded', function() {
+    readCookies();
+});
+
+// Set interval to refresh cookies every 10 seconds
+setInterval(refreshCookies, 10000); // 10000 milliseconds = 10 seconds
