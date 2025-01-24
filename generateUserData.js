@@ -25,7 +25,7 @@ function generateUserData() {
 
     console.log(userData);
     displayUserData(userData);
-    sendAdobeEvent();
+ 
 }
 
 function generatePhoneNumber() {
@@ -45,22 +45,7 @@ function displayUserData(userData) {
     document.getElementById('phoneNumber').innerText = userData.phoneNumber;
 }
 
-function sendAdobeEvent() {
-    if (window._satellite) {
-        window._satellite.track('userProfileGenerated', {
-            username: username,
-            email: email,
-            firstName: firstName,
-            lastName: lastName,
-            lastLogin: lastLogin,
-            age: age,
-            phoneNumber: phoneNumber
-        });
-        console.log('Adobe event sent');
-    } else {
-        console.log('Adobe Launch not available');
-    }
-}
+
 
 function deleteCookies() {
     const cookies = document.cookie.split(';');
@@ -92,8 +77,9 @@ function stopDynamicGeneration() {
 }
 
 var intervalId;
+// Call generateUserData before the page load function
+generateUserData();
 
 document.addEventListener('DOMContentLoaded', function() {
-    generateUserData(); // Call once on page load
     startDynamicGeneration(); // Start dynamic generation by default
 });
