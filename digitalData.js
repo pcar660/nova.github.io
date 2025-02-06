@@ -76,7 +76,8 @@ function deleteCookies() {
 }
 
 function startDynamicGeneration() {
-    dynamicGeneration = false;
+    if (dynamicGeneration) return; // Prevent multiple intervals
+    dynamicGeneration = true;
     generateUserData(); // Generate once immediately
     intervalId = setInterval(function() {
         if (dynamicGeneration) {
@@ -89,6 +90,7 @@ function startDynamicGeneration() {
         }
     }, 20000); // 20000 milliseconds = 20 seconds
 }
+
 
 function stopDynamicGeneration() {
     dynamicGeneration = false;
