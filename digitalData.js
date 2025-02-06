@@ -97,10 +97,10 @@ function stopDynamicGeneration() {
 
 var intervalId;
 
-
 document.addEventListener('DOMContentLoaded', function() {
-    startDynamicGeneration(); // Start dynamic generation by default
+    console.log("Page loaded. Waiting for user interaction.");
 });
+
 
 
 
