@@ -193,7 +193,7 @@ window.digitalData = {
             "lastName": lastName,
             "age": age,
             "phoneNumber": phoneNumber,
-            "location": "New York",
+            "location": "Brussels",
             "isSubscribed": true,
             "lastLogin": lastLogin,
             "novaWebEventID": Date.now().toString()  // Add the current timestamp here
@@ -205,6 +205,8 @@ window.digitalData = {
   "pageInstanceID": "nova:home",
   "language": "en"
 };
+
+sendToAdobe(username, firstName, lastName, email,phoneNumber, 'Brussesl', 'male');
 
 window.digitalData.page.pageInfo.referringURL = document.referrer;
 window.digitalData.page.pageInfo.sysEnv = navigator.userAgent;
