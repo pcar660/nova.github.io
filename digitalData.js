@@ -6,7 +6,7 @@
 // generateUserData.js
 
 var username, email, firstName, lastName, age, lastLogin, phoneNumber;
-var dynamicGeneration = true; // Control variable set to true by default
+var dynamicGeneration = false; // Control variable set to true by default
 
 function generateUserData() {
     const timestamp = new Date().getTime();
