@@ -1,17 +1,12 @@
+// Import the functions you need from the modular Firebase SDKs
+import { initializeApp } from "firebase/app";
+import { getDatabase, ref, set } from "firebase/database";
 
 
 // Generate User Data
 var username, email, firstName, lastName, age, lastLogin, phoneNumber;
 var dynamicGeneration = false;
 var intervalId;
-
-// digitalData.js
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set } from "firebase/database";
-
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -24,13 +19,13 @@ const firebaseConfig = {
   appId: "1:481843950955:web:5e2093ef7195359ea6c82e"
 };
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
+// Initialize Firebase with the new modular SDK
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
 
 // ✅ Function to Save Data
 function saveUserData(username, email, firstName, lastName, age, phoneNumber, lastLogin) {
-    const userId = database.ref().child('users').push().key;
+    const userId = ref(database, 'users').push().key; // Create a unique ID for the user
 
     const userData = {
         profileInfo: {},
@@ -50,15 +45,14 @@ function saveUserData(username, email, firstName, lastName, age, phoneNumber, la
         }
     };
 
-    database.ref('users/' + userId).set(userData)
+    // Save the user data to Firebase
+    set(ref(database, 'users/' + userId), userData)
         .then(() => console.log("✅ User data saved successfully!"))
         .catch(error => console.error("❌ Error saving user data:", error));
 }
 
 // ✅ Example Usage
 saveUserData("johndoe123", "john.doe@example.com", "John", "Doe", 30, "+1234567890", Date.now());
-
-
 
 // Function to generate user data
 function generateUserData() {
@@ -85,7 +79,6 @@ function generateUserData() {
     displayUserData(userData);
 
     // Store user data in Gist
- 
 }
 
 // Helper functions for random data generation
