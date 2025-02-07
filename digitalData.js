@@ -1,6 +1,6 @@
 // digitalData.js
 
-const GIST_ID = '040f231a655ac6c4db51971da9cc101a'; // Replace with your Gist ID
+const GIST_ID = '73cc56985c6069bd1ae79ad8263c3712'; // Replace with your Gist ID
 
 async function fetchGist() {
     const url = `https://api.github.com/gists/${GIST_ID}`;
@@ -11,6 +11,9 @@ async function fetchGist() {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const gist = await response.json();
+        if (!gist.files['novaData.json']) {
+            throw new Error('File novaData.json not found in the Gist');
+        }
         return gist.files['novaData.json'].content;
     } catch (error) {
         console.error('Failed to fetch Gist:', error);
