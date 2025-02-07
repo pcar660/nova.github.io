@@ -97,7 +97,7 @@ const database = getDatabase(app);
 //const database = getDatabase(app);
 
 //  Function to Save Data
-function saveUserData(username, email, firstName, lastName, age, phoneNumber, lastLogin) {
+function saveUserDataFirebase(username, email, firstName, lastName, age, phoneNumber, lastLogin) {
     const userId = Date.now().toString();//ref(database, 'users').push().key; // Create a unique ID for the user
 
     const userData = {
@@ -123,7 +123,7 @@ function saveUserData(username, email, firstName, lastName, age, phoneNumber, la
         .then(() => console.log("✅ User data saved successfully!"))
         .catch(error => console.error("❌ Error saving user data:", error));
 }
-saveUserData("johndoe123", "john.doe@example.com", "John", "Doe", 30, "+1234567890", Date.now());
+
 
     </script>
     <!--  End sedn data to firebase  -->
