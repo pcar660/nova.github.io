@@ -8,6 +8,8 @@ var intervalId;
 // digitalData.js
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { getDatabase, ref, set } from "firebase/database";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -23,21 +25,38 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
 
+// ✅ Function to Save Data
+function saveUserData(username, email, firstName, lastName, age, phoneNumber, lastLogin) {
+    const userId = database.ref().child('users').push().key;
 
-function saveTestData() {
-    database.ref('test').set({
-        message: "Hello, Firebase!"
-    }).then(() => {
-        console.log("Data saved successfully!");
-    }).catch((error) => {
-        console.error("Error:", error);
-    });
+    const userData = {
+        profileInfo: {},
+        attributes: {
+            loggedIn: false,
+            novaCrmId: username,
+            email: email,
+            firstName: firstName,
+            lastName: lastName,
+            age: age,
+            phoneNumber: phoneNumber,
+            location: "Brussels",
+            isSubscribed: true,
+            lastLogin: lastLogin,
+            creationDate: Date.now(),
+            novaWebEventID: Date.now().toString()
+        }
+    };
+
+    database.ref('users/' + userId).set(userData)
+        .then(() => console.log("✅ User data saved successfully!"))
+        .catch(error => console.error("❌ Error saving user data:", error));
 }
 
-// Call the function
-saveTestData();
+// ✅ Example Usage
+saveUserData("johndoe123", "john.doe@example.com", "John", "Doe", 30, "+1234567890", Date.now());
 
 
 
@@ -66,7 +85,7 @@ function generateUserData() {
     displayUserData(userData);
 
     // Store user data in Gist
-    updateGist(userData);
+ 
 }
 
 // Helper functions for random data generation
