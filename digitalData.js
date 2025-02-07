@@ -31,6 +31,7 @@ function generateUserData() {
 
     console.log("Generated User Data:", userData);
     displayUserData(userData);
+    
 
     // Store user data in Gist
 }
@@ -85,7 +86,7 @@ function startDynamicGeneration() {
     if (dynamicGeneration) return;
     dynamicGeneration = true;
 
-    generateUserData(); // Generate once immediately
+
 
     intervalId = setInterval(() => {
         if (dynamicGeneration) {
@@ -116,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Adobe Data Function
-async function sendToAdobe(novaCrmId, firstName, lastName, email, phone, city, gender = null) {
+async function sendToAdobeProfileHTTPAPI(novaCrmId, firstName, lastName, email, phone, city, gender = null) {
     const url = "https://dcs.adobedc.net/collection/73fdb1443d451c866e0218c25c332b84f06ae5e55416f1a1b7da32ec606aa281?syncValidation=true";
 
     const uniqueId = Date.now().toString(36) + Math.random().toString(36).substring(2, 8);
@@ -159,8 +160,11 @@ async function sendToAdobe(novaCrmId, firstName, lastName, email, phone, city, g
 
 // Run Adobe Data Submission
 document.addEventListener("DOMContentLoaded", function () {
-    sendToAdobe(username, firstName, lastName, email, phoneNumber, 'Brussels', 'male');
+    sendToAdobeProfileHTTPAPI(username, firstName, lastName, email, phoneNumber, 'Brussels', 'male');
+    saveUserData(username, email, firstName, lastName, age, phoneNumber, Date.now());
 });
+
+generateUserData(); // Generate once immediately
 
 // Digital Data Object
 window.digitalData = {
