@@ -36,7 +36,7 @@ export function saveUserDataFirebase(username, email, firstName, lastName, age, 
             location: "Brussels",
             isSubscribed: true,
             lastLogin: lastLogin,
-            creationDate: Date.now(),
+            creationDate: formatDateTime(),
             novaWebEventID: Date.now().toString()
         }
     };
@@ -47,6 +47,20 @@ export function saveUserDataFirebase(username, email, firstName, lastName, age, 
         .catch(error => console.error("❌ Error saving user data:", error));
 }
 
+function formatDateTime() {
+  const date = new Date();
+  const dd = String(date.getDate()).padStart(2, '0');
+  const mm = String(date.getMonth() + 1).padStart(2, '0'); // January is 0!
+  const yyyy = date.getFullYear();
+  let hh = date.getHours();
+  const min = String(date.getMinutes()).padStart(2, '0');
+  const ss = String(date.getSeconds()).padStart(2, '0');
+  const ampm = hh >= 12 ? 'PM' : 'AM';
+  hh = hh % 12;
+  hh = hh ? hh : 12; // the hour '0' should be '12'
+  const formattedTime = `${String(hh).padStart(2, '0')}:${min}:${ss}${ampm}`;
+  return `${dd}-${mm}-${yyyy} ${formattedTime}`;
+}
           // Export the function
 
 
