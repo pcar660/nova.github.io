@@ -26,6 +26,21 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 
+function saveTestData() {
+    database.ref('test').set({
+        message: "Hello, Firebase!"
+    }).then(() => {
+        console.log("Data saved successfully!");
+    }).catch((error) => {
+        console.error("Error:", error);
+    });
+}
+
+// Call the function
+saveTestData();
+
+
+
 // Function to generate user data
 function generateUserData() {
     const timestamp = new Date().getTime();
