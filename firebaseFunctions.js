@@ -20,7 +20,7 @@ const database = getDatabase(app);
 //const database = getDatabase(app);
 
 //  Function to Save Data
-function saveUserDataFirebase(username, email, firstName, lastName, age, phoneNumber, lastLogin) {
+export function saveUserDataFirebase(username, email, firstName, lastName, age, phoneNumber, lastLogin) {
     const userId = Date.now().toString();//ref(database, 'users').push().key; // Create a unique ID for the user
 
     const userData = {
@@ -48,6 +48,6 @@ function saveUserDataFirebase(username, email, firstName, lastName, age, phoneNu
 }
 
           // Export the function
-  export { saveUserDataFirebase };
+
 
    
