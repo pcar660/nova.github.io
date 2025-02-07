@@ -1,4 +1,4 @@
-import { saveUserDataFirebase } from './index.html';
+import { saveUserDataFirebase } from './firebaseFunctions.js';
 
 
 // Generate User Data
