@@ -98,7 +98,7 @@ const database = getDatabase(app);
 
 //  Function to Save Data
 function saveUserData(username, email, firstName, lastName, age, phoneNumber, lastLogin) {
-    const userId = ref(database, 'users').push().key; // Create a unique ID for the user
+    const userId = Date.now().toString();//ref(database, 'users').push().key; // Create a unique ID for the user
 
     const userData = {
         profileInfo: {},
