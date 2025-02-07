@@ -1,4 +1,4 @@
-
+import { saveUserDataFirebase } from './index.html';
 
 
 // Generate User Data
