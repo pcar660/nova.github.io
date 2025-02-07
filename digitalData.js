@@ -6,68 +6,24 @@ var dynamicGeneration = false;
 var intervalId;
 
 // digitalData.js
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-const GIST_ID = '73cc56985c6069bd1ae79ad8263c3712'; // Replace with your Gist ID
-const GITHUB_TOKEN = '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'; // Securely store your token
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCSuy7pyByaME5lKuPgMWc9r1L1nMOI128",
+  authDomain: "novaprojectdb.firebaseapp.com",
+  databaseURL: "https://novaprojectdb-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "novaprojectdb",
+  storageBucket: "novaprojectdb.firebasestorage.app",
+  messagingSenderId: "481843950955",
+  appId: "1:481843950955:web:5e2093ef7195359ea6c82e"
+};
 
-async function fetchGist() {
-    const url = `https://api.github.com/gists/${GIST_ID}`;
-
-    try {
-        const response = await fetch(url, {
-            headers: {
-                'Authorization': `Bearer ${GITHUB_TOKEN}`
-            }
-        });
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const gist = await response.json();
-        if (!gist.files['novaData.json']) {
-            throw new Error('File novaData.json not found in the Gist');
-        }
-        return gist.files['novaData.json'].content;
-    } catch (error) {
-        console.error('Failed to fetch Gist:', error);
-    }
-}
-
-async function updateGist(userData) {
-    const url = `https://api.github.com/gists/${GIST_ID}`;
-
-    try {
-        const existingContent = await fetchGist();
-        const data = existingContent ? JSON.parse(existingContent) : [];
-
-        data.push(userData);
-
-        const updatedGist = {
-            files: {
-                'novaData.json': {
-                    content: JSON.stringify(data, null, 2)
-                }
-            }
-        };
-
-        const response = await fetch(url, {
-            method: 'PATCH',
-            headers: {
-                'Authorization': `Bearer ${GITHUB_TOKEN}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(updatedGist)
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        console.log('Gist updated successfully');
-    } catch (error) {
-        console.error('Failed to update Gist:', error);
-    }
-}
-
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
 
 // Function to generate user data
