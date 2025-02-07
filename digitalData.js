@@ -8,7 +8,7 @@ var intervalId;
 // digitalData.js
 
 const GIST_ID = '73cc56985c6069bd1ae79ad8263c3712'; // Replace with your Gist ID
-const GITHUB_TOKEN = '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'; // Securely store your token
+//const GITHUB_TOKEN = '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'; // Securely store your token
 
 async function fetchGist() {
     const url = `https://api.github.com/gists/${GIST_ID}`;
