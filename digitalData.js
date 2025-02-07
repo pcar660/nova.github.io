@@ -1,6 +1,4 @@
-// Import the functions you need from the modular Firebase SDKs
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set } from "firebase/database";
+
 
 
 // Generate User Data
@@ -8,51 +6,7 @@ var username, email, firstName, lastName, age, lastLogin, phoneNumber;
 var dynamicGeneration = false;
 var intervalId;
 
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyCSuy7pyByaME5lKuPgMWc9r1L1nMOI128",
-  authDomain: "novaprojectdb.firebaseapp.com",
-  databaseURL: "https://novaprojectdb-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "novaprojectdb",
-  storageBucket: "novaprojectdb.firebasestorage.app",
-  messagingSenderId: "481843950955",
-  appId: "1:481843950955:web:5e2093ef7195359ea6c82e"
-};
 
-// Initialize Firebase with the new modular SDK
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
-
-// ✅ Function to Save Data
-function saveUserData(username, email, firstName, lastName, age, phoneNumber, lastLogin) {
-    const userId = ref(database, 'users').push().key; // Create a unique ID for the user
-
-    const userData = {
-        profileInfo: {},
-        attributes: {
-            loggedIn: false,
-            novaCrmId: username,
-            email: email,
-            firstName: firstName,
-            lastName: lastName,
-            age: age,
-            phoneNumber: phoneNumber,
-            location: "Brussels",
-            isSubscribed: true,
-            lastLogin: lastLogin,
-            creationDate: Date.now(),
-            novaWebEventID: Date.now().toString()
-        }
-    };
-
-    // Save the user data to Firebase
-    set(ref(database, 'users/' + userId), userData)
-        .then(() => console.log("✅ User data saved successfully!"))
-        .catch(error => console.error("❌ Error saving user data:", error));
-}
-
-// ✅ Example Usage
-saveUserData("johndoe123", "john.doe@example.com", "John", "Doe", 30, "+1234567890", Date.now());
 
 // Function to generate user data
 function generateUserData() {
