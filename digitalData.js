@@ -1,5 +1,59 @@
 // digitalData.js
 
+const GIST_ID = '040f231a655ac6c4db51971da9cc101a'; // Replace with your Gist ID
+
+async function fetchGist() {
+    const url = `https://api.github.com/gists/${GIST_ID}`;
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const gist = await response.json();
+        return gist.files['novaData.json'].content;
+    } catch (error) {
+        console.error('Failed to fetch Gist:', error);
+    }
+}
+
+async function updateGist(userData) {
+    const url = `https://api.github.com/gists/${GIST_ID}`;
+
+    try {
+        const existingContent = await fetchGist();
+        const data = existingContent ? JSON.parse(existingContent) : [];
+
+        // Append new user data
+        data.push(userData);
+
+        // Update Gist with new content
+        const updatedGist = {
+            files: {
+                'novaData.json': {
+                    content: JSON.stringify(data, null, 2)
+                }
+            }
+        };
+
+        const response = await fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedGist)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        console.log('Gist updated successfully');
+    } catch (error) {
+        console.error('Failed to update Gist:', error);
+    }
+}
+
 // Generate User Data
 var username, email, firstName, lastName, age, lastLogin, phoneNumber;
 var dynamicGeneration = false;
@@ -28,6 +82,9 @@ function generateUserData() {
 
     console.log("Generated User Data:", userData);
     displayUserData(userData);
+
+    // Store user data in Gist
+    updateGist(userData);
 }
 
 // Helper functions for random data generation
