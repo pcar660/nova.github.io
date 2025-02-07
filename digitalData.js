@@ -1,12 +1,24 @@
+
+
+// Generate User Data
+var username, email, firstName, lastName, age, lastLogin, phoneNumber;
+var dynamicGeneration = false;
+var intervalId;
+
 // digitalData.js
 
 const GIST_ID = '73cc56985c6069bd1ae79ad8263c3712'; // Replace with your Gist ID
+const GITHUB_TOKEN = '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'; // Securely store your token
 
 async function fetchGist() {
     const url = `https://api.github.com/gists/${GIST_ID}`;
 
     try {
-        const response = await fetch(url);
+        const response = await fetch(url, {
+            headers: {
+                'Authorization': `Bearer ${GITHUB_TOKEN}`
+            }
+        });
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -27,10 +39,8 @@ async function updateGist(userData) {
         const existingContent = await fetchGist();
         const data = existingContent ? JSON.parse(existingContent) : [];
 
-        // Append new user data
         data.push(userData);
 
-        // Update Gist with new content
         const updatedGist = {
             files: {
                 'novaData.json': {
@@ -42,6 +52,7 @@ async function updateGist(userData) {
         const response = await fetch(url, {
             method: 'PATCH',
             headers: {
+                'Authorization': `Bearer ${GITHUB_TOKEN}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(updatedGist)
@@ -57,10 +68,7 @@ async function updateGist(userData) {
     }
 }
 
-// Generate User Data
-var username, email, firstName, lastName, age, lastLogin, phoneNumber;
-var dynamicGeneration = false;
-var intervalId;
+
 
 // Function to generate user data
 function generateUserData() {
