@@ -4,6 +4,7 @@ import { saveUserDataFirebase } from './firebaseFunctions.js';
 // Generate User Data
 var username, email, firstName, lastName, age, lastLogin, phoneNumber;
 var dynamicGeneration = false;
+let dynamicGeneration = localStorage.getItem('dynamicGeneration') === 'true'; // Retrieve from localStorage
 var intervalId;
 
 
@@ -84,14 +85,16 @@ function deleteCookies() {
 
 // Function to start dynamic data generation
 function startDynamicGeneration() {
-    if (dynamicGeneration) return;
-    dynamicGeneration = true;
+  dynamicGeneration = true;
+    localStorage.setItem('dynamicGeneration', 'true'); // Store in localStorage
+    //userDataGenerated = false; // Reset the flag for dynamic generation
+    //location.reload(); // Reload to start the interval
 
 
 
     intervalId = setInterval(() => {
         if (dynamicGeneration) {
-            generateUserData("L1");
+           
             setTimeout(readCookies, 10000); // Read cookies after 10 seconds
             setTimeout(() => {
                 deleteCookies(); // Delete cookies before reloading
@@ -104,7 +107,9 @@ function startDynamicGeneration() {
 // Function to stop dynamic data generation
 function stopDynamicGeneration() {
     dynamicGeneration = false;
+    localStorage.setItem('dynamicGeneration', 'false'); // Store in localStorage
     clearInterval(intervalId);
+    location.reload(); // Reload to stop the interval
 }
 
 // Attach functions to the global scope
