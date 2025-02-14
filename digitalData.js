@@ -111,11 +111,14 @@ function stopDynamicGeneration() {
 window.startDynamicGeneration = startDynamicGeneration;
 window.stopDynamicGeneration = stopDynamicGeneration;
 
+/*
 // Run user data generation on page load
 document.addEventListener("DOMContentLoaded", function () {
     console.log("Page loaded. Generating user data...");
     generateUserData("L3");
 });
+
+*/
 
 /*
 // Adobe Data Function
@@ -167,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function () {
     saveUserDataFirebase(username, email, firstName, lastName, age, phoneNumber, Date.now());
 });
 
-//generateUserData("L2"); // Generate once immediately
+generateUserData("L2"); // Generate once immediately
 
 // Digital Data Object
 window.digitalData = {
