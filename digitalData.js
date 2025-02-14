@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
     saveUserDataFirebase(username, email, firstName, lastName, age, phoneNumber, Date.now());
 });
 
-generateUserData("L2"); // Generate once immediately
+//generateUserData("L2"); // Generate once immediately
 
 // Digital Data Object
 window.digitalData = {
