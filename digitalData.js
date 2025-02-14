@@ -4,7 +4,7 @@ import { saveUserDataFirebase } from './firebaseFunctions.js';
 // Generate User Data
 var username, email, firstName, lastName, age, lastLogin, phoneNumber;
 var dynamicGeneration = false;
-let dynamicGeneration = localStorage.getItem('dynamicGeneration') === 'true'; // Retrieve from localStorage
+ dynamicGeneration = localStorage.getItem('dynamicGeneration') === 'true'; // Retrieve from localStorage
 var intervalId;
 
 
