@@ -114,7 +114,7 @@ window.stopDynamicGeneration = stopDynamicGeneration;
 // Run user data generation on page load
 document.addEventListener("DOMContentLoaded", function () {
     console.log("Page loaded. Generating user data...");
-    generateUserData();
+    generateUserData("L3");
 });
 
 /*
