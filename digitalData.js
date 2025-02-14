@@ -9,7 +9,8 @@ var intervalId;
 
 
 // Function to generate user data
-function generateUserData() {
+function generateUserData(source) {
+      alert(source + "--> myFunction() has been called!"); 
     const timestamp = new Date().getTime();
     username = `novaid${timestamp}`;
     email = `${username}@yopmail.com`;
@@ -90,7 +91,7 @@ function startDynamicGeneration() {
 
     intervalId = setInterval(() => {
         if (dynamicGeneration) {
-            generateUserData();
+            generateUserData("L1");
             setTimeout(readCookies, 10000); // Read cookies after 10 seconds
             setTimeout(() => {
                 deleteCookies(); // Delete cookies before reloading
@@ -166,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
     saveUserDataFirebase(username, email, firstName, lastName, age, phoneNumber, Date.now());
 });
 
-generateUserData(); // Generate once immediately
+generateUserData("L2"); // Generate once immediately
 
 // Digital Data Object
 window.digitalData = {
