@@ -116,6 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
     generateUserData();
 });
 
+/*
 // Adobe Data Function
 async function sendToAdobeProfileHTTPAPI(novaCrmId, firstName, lastName, email, phone, city, gender = null) {
     const url = "https://dcs.adobedc.net/collection/73fdb1443d451c866e0218c25c332b84f06ae5e55416f1a1b7da32ec606aa281?syncValidation=true";
@@ -158,10 +159,10 @@ async function sendToAdobeProfileHTTPAPI(novaCrmId, firstName, lastName, email, 
         console.error("Error sending data:", error);
     }
 }
-
+*/
 // Run Adobe Data Submission
 document.addEventListener("DOMContentLoaded", function () {
-    sendToAdobeProfileHTTPAPI(username, firstName, lastName, email, phoneNumber, 'Brussels', 'male');
+    //sendToAdobeProfileHTTPAPI(username, firstName, lastName, email, phoneNumber, 'Brussels', 'male');
     saveUserDataFirebase(username, email, firstName, lastName, age, phoneNumber, Date.now());
 });
 
