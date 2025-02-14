@@ -75,11 +75,26 @@ function displayUserData(userData) {
 
 // Function to delete all cookies
 function deleteCookies() {
-    document.cookie.split(';').forEach(cookie => {
-        const [name] = cookie.split('=');
-        document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;`;
-    });
-    console.log('All cookies deleted');
+     const cookies = document.cookie.split(";");
+
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i];
+        const eqPos = cookie.indexOf("=");
+        const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        const expires = "expires=Thu, 01 Jan 1970 00:00:00 GMT";
+
+        // Try deleting with different path and domain combinations:
+        document.cookie = name + "=; " + expires + "; path=/; domain=" + document.domain;
+        document.cookie = name + "=; " + expires + "; path=/"; // Try without domain
+        document.cookie = name + "=; " + expires + "; path=/; domain=." + document.domain;  //Try with dot before domain
+        
+        //Important: If the cookie was set with a specific path, you MUST use the same path to delete it:
+        //Example: If it was set with path=/some/path, then delete it like this:
+        //document.cookie = name + "=; " + expires + "; path=/some/path; domain=" + document.domain;
+
+        console.log("Attempting to delete cookie:", name); // Log to see what's being deleted
+    }
+    console.log('All cookies deletion attempts finished.');
 }
 
 // Function to start dynamic data generation
