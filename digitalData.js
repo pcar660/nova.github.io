@@ -29,7 +29,7 @@ function generateUserData() {
         age,
         phoneNumber
     };
-
+alert("Generated User Data");
     console.log("Generated User Data:", userData);
     displayUserData(userData);
     
