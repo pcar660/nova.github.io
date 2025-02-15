@@ -29,7 +29,7 @@ function generateUserData() {
         age,
         phoneNumber
     };
-alert("Generated User Data");
+//alert("Generated User Data");
     console.log("Generated User Data:", userData);
     displayUserData(userData);
     
@@ -136,6 +136,12 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+// Delete all cookie 
+deleteCookies();
+
+// Call data gernration
+generateUserData(); // Generate once immediately
+
 
 // Digital Data Object
 window.digitalData = {
@@ -188,11 +194,6 @@ window.digitalData = {
     "language": "en"
 };
 
-// Delete all cookie 
-//deleteCookies();
-
-// Call data gernration
-generateUserData(); // Generate once immediately
 
 // Set interval
 if (dynamicGeneration){
