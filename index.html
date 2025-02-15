@@ -102,26 +102,4 @@
 </body>
 </html>
 
-<script>
-window.addEventListener('load', (event) => {
-  console.log('Page and all resources are fully loaded!');
 
-  // Your code to execute after the page loads completely goes here.
-  // For example, you might initialize JavaScript libraries,
-  // manipulate the DOM, or make AJAX requests.
-
-  // Example: Display an alert
-  alert("Page Loaded!");
-
-  // Example: Accessing elements (safer now as elements are loaded)
-  const myElement = document.getElementById("myElement");
-  if (myElement) {
-    myElement.textContent = "Content loaded!";
-  }
-
-});
-
-// This code will run *before* the load event.
-console.log("This will log before the page is fully loaded.");
-
-</script>
