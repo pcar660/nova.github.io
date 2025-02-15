@@ -189,7 +189,7 @@ window.digitalData = {
 };
 
 // Delete all cookie 
-deleteCookies();
+//deleteCookies();
 
 // Call data gernration
 generateUserData(); // Generate once immediately
