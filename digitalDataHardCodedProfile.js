@@ -36,8 +36,8 @@ var intervalId;
 // Function to generate user data from userDataFromCSV array
 function generateUserData() {
     const randomUser = userDataFromCSV[Math.floor(Math.random() * userDataFromCSV.length)];
-
-    username = `novaid_${randomUser.novacrmid}`;
+   
+    username = randomUser.novacrmid;
     email = randomUser.address;
     firstName = randomUser.firstname;
     lastName = randomUser.lastname;
