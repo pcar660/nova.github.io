@@ -15,14 +15,23 @@
     try {
       const response = await fetch('https://catfact.ninja/breeds');
 
+      console.log("Raw Response:", response); // Log the raw response object
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const data = await response.json();
-      const breeds = data.data; // Access the 'data' property containing the breeds array
+
+      console.log("Parsed JSON Data:", data); // Log the parsed JSON
+
+      const breeds = data.data; // Access the 'data' property
+
+      console.log("Breeds Array:", breeds); // Log the breeds array
 
       breeds.forEach(breed => {
+        console.log("Individual Breed:", breed); // Log each breed object
+
         const listItem = document.createElement('li');
         listItem.textContent = `${breed.breed} (Origin: ${breed.origin})`;
         breedList.appendChild(listItem);
@@ -30,7 +39,7 @@
 
     } catch (error) {
       console.error('Error fetching breeds:', error);
-      breedList.innerHTML = "<li>Error fetching cat breeds. Please check the console.</li>"; // Display error on the page
+      breedList.innerHTML = "<li>Error fetching cat breeds. Please check the console.</li>";
     }
   }
 
