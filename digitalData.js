@@ -122,7 +122,7 @@ window.stopDynamicGeneration = stopDynamicGeneration;
 
 // Request access token: 
 
-sync function getAccessToken() {
+async function getAccessToken() {
   const url = 'https://ims-na1.adobelogin.com/ims/token/v2';
   const params = new URLSearchParams({
     grant_type: 'client_credentials',
