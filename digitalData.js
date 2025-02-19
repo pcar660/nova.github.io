@@ -113,17 +113,7 @@ function stopDynamicGeneration() {
     location.reload(); // Reload to stop the interval
 }
 
-function deleteAllCookies() {
-    const cookies = document.cookie.split(";");
 
-    for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i];
-        const eqPos = cookie.indexOf("=");
-        const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/"; // Clear for all paths
-        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=" + document.domain; // Clear for current domain and subdomains
-    }
-}
 
 // Attach functions to the global scope
 window.startDynamicGeneration = startDynamicGeneration;
@@ -131,9 +121,54 @@ window.stopDynamicGeneration = stopDynamicGeneration;
 
 // Run Adobe Data Submission
 document.addEventListener("DOMContentLoaded", function () {
-    //sendToAdobeProfileHTTPAPI(username, firstName, lastName, email, phoneNumber, 'Brussels', 'male');
+    sendToAdobeProfileHTTPAPI(username, firstName, lastName, email, phoneNumber, 'Brussels', 'male');
     saveUserDataFirebase(username, email, firstName, lastName, age, phoneNumber, Date.now());
 });
+
+// Send data to adobe profile: 
+
+// Adobe Data Function
+async function sendToAdobeProfileHTTPAPI(novaCrmId, firstName, lastName, email, phone, city, gender = null) {
+    const url = "https://dcs.adobedc.net/collection/73fdb1443d451c866e0218c25c332b84f06ae5e55416f1a1b7da32ec606aa281?syncValidation=true";
+
+    const uniqueId = Date.now().toString(36) + Math.random().toString(36).substring(2, 8);
+
+    const data = {
+        "_id": uniqueId,
+        "_capgeminiamerptrsd": { "novacrmId": novaCrmId },
+        "person": {
+            "name": { "firstName": firstName, "lastName": lastName },
+            "gender": gender
+        },
+        "personalEmail": { "address": email },
+        "mobilePhone": { "number": phone },
+        "mailingAddress": { "city": city }
+    };
+
+    console.log("Sending data to adobe profile:", JSON.stringify(data, null, 2));
+
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "sandbox-name": "capgeminibelgium",
+                "datasetId": "678b7184a9ddf22aee102b95",
+                "flowId": "9d9743c5-27a7-4642-987e-0ce388756ab5",
+                "imsOrgID": "9D6FC4045823262D0A495CC8@AdobeOrg",
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+        const result = await response.json();
+        console.log("Success:", result);
+    } catch (error) {
+        console.error("Error sending data:", error);
+    }
+}
+
 
 
 // Delete all cookie 
