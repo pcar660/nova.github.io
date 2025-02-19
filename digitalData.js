@@ -183,6 +183,7 @@ async function sendToAdobeProfileHTTPAPI(novaCrmId, firstName, lastName, email, 
                 "datasetId": "678b7184a9ddf22aee102b95",
                 "flowId": "9d9743c5-27a7-4642-987e-0ce388756ab5",
                 "imsOrgID": "9D6FC4045823262D0A495CC8@AdobeOrg",
+                 "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsIng1dSI6Imltc19uYTEta2V5LWF0LTEuY2VyIiwia2lkIjoiaW1zX25hMS1rZXktYXQtMSIsIml0dCI6ImF0In0.eyJpZCI6IjE3Mzk5NDg0MDk0NTVfZWM1MjI0ZDUtMTVkMi00ZmEyLWEwM2ItNWYwN2MwZmY1M2Q2X3ZhNmMyIiwib3JnIjoiOUQ2RkM0MDQ1ODIzMjYyRDBBNDk1Q0M4QEFkb2JlT3JnIiwidHlwZSI6ImFjY2Vzc190b2tlbiIsImNsaWVudF9pZCI6IjFjOWQ2YTk3YzEwMzRkNjA5MWU0NDBlNmM0M2NhN2E0IiwidXNlcl9pZCI6IjBFODAxRUQ5Njc4N0YxNDgwQTQ5NUVFN0B0ZWNoYWNjdC5hZG9iZS5jb20iLCJhcyI6Imltcy1uYTEiLCJhYV9pZCI6IjBFODAxRUQ5Njc4N0YxNDgwQTQ5NUVFN0B0ZWNoYWNjdC5hZG9iZS5jb20iLCJjdHAiOjMsIm1vaSI6IjhhZWZmZDc0IiwiZXhwaXJlc19pbiI6Ijg2NDAwMDAwIiwic2NvcGUiOiJvcGVuaWQsc2Vzc2lvbixBZG9iZUlELHJlYWRfb3JnYW5pemF0aW9ucyxhZGRpdGlvbmFsX2luZm8ucHJvamVjdGVkUHJvZHVjdENvbnRleHQiLCJjcmVhdGVkX2F0IjoiMTczOTk0ODQwOTQ1NSJ9.J-GPQxiAGbDODuUeGo7M0SkxOMUy7mLH8j9umUMcm2uvgszIDHy1gvQ9Ez97-Rbhh9PplCZFSQ5zLC-A_2_UmfUXEuD0Hun_UdLNyWzLL2aUzWQ5fKc_ahBhnlObFUgyTNoZvrlxT3nPp7SxTRY8VuzeN3KF6NOQOPO8jCaVLxBgGKM9sZgNFk544GWmUibNB6NGbDarN6l2CF-3FLzUG-w2Pb6CHQsMNNcXOVZeSn9DejrA3qF0vxOW4y_ddKOuvxld2txmTK_3xQPNBL4nxryP9b5O-1VvB1W7hW68FbH3ysrB5_lxtc0dKkXu3y8CQGlxQwSiAvD5smuTyf6qXg"
             },
             body: JSON.stringify(data)
         });
@@ -198,7 +199,7 @@ async function sendToAdobeProfileHTTPAPI(novaCrmId, firstName, lastName, email, 
 
 // Run Adobe Data Submission
 document.addEventListener("DOMContentLoaded", function () {
-   getAccessToken().then(token => console.log('Access Token:', token));
+   //getAccessToken().then(token => console.log('Access Token:', token));
  
 // call adobe profile
 sendToAdobeProfileHTTPAPI(username, firstName, lastName, email, phoneNumber, 'Brussels', 'male');
