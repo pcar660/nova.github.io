@@ -119,10 +119,7 @@ function stopDynamicGeneration() {
 window.startDynamicGeneration = startDynamicGeneration;
 window.stopDynamicGeneration = stopDynamicGeneration;
 
-// Run Adobe Data Submission
-document.addEventListener("DOMContentLoaded", function () {
-    saveUserDataFirebase(username, email, firstName, lastName, age, phoneNumber, Date.now());
-});
+
 
 // Send data to adobe profile: 
 
@@ -168,13 +165,17 @@ async function sendToAdobeProfileHTTPAPI(novaCrmId, firstName, lastName, email, 
     }
 }
 
-
+// Run Adobe Data Submission
+document.addEventListener("DOMContentLoaded", function () {
+ 
+// call adobe profile
+sendToAdobeProfileHTTPAPI(username, firstName, lastName, email, phoneNumber, 'Brussels', 'male');
+    saveUserDataFirebase(username, email, firstName, lastName, age, phoneNumber, Date.now());
+});
 
 // Delete all cookie 
 deleteCookies();
 
-// call adobe profile
-sendToAdobeProfileHTTPAPI(username, firstName, lastName, email, phoneNumber, 'Brussels', 'male');
 
 // Call data gernration
 generateUserData(); // Generate once immediately
