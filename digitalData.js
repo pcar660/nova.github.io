@@ -120,6 +120,37 @@ window.startDynamicGeneration = startDynamicGeneration;
 window.stopDynamicGeneration = stopDynamicGeneration;
 
 
+// Request access token: 
+
+sync function getAccessToken() {
+  const url = 'https://ims-na1.adobelogin.com/ims/token/v2';
+  const params = new URLSearchParams({
+    grant_type: 'client_credentials',
+    client_id: '1c9d6a97c1034d6091e440e6c43ca7a4',
+    client_secret: 'p8e-E-R-ieiUil3tYO9PWHmxV6GuDQlQ91sk',
+    scope: 'openid,AdobeID,read_organizations,additional_info.projectedProductContext,session'
+  });
+
+  try {
+    const response = await fetch(`${url}?${params.toString()}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data.access_token;
+  } catch (error) {
+    console.error('Error fetching access token:', error);
+    throw error;
+  }
+}
+
 
 // Send data to adobe profile: 
 
@@ -167,6 +198,7 @@ async function sendToAdobeProfileHTTPAPI(novaCrmId, firstName, lastName, email, 
 
 // Run Adobe Data Submission
 document.addEventListener("DOMContentLoaded", function () {
+   getAccessToken().then(token => console.log('Access Token:', token));
  
 // call adobe profile
 sendToAdobeProfileHTTPAPI(username, firstName, lastName, email, phoneNumber, 'Brussels', 'male');
