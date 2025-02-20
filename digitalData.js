@@ -173,7 +173,7 @@ async function sendToAdobeProfileHTTPAPI(novaCrmId, firstName, lastName, email, 
 
 
 // Run Adobe Data Submission
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
         const token = await getAccessToken();
       // call adobe profile
      await sendToAdobeProfileHTTPAPI(username, firstName, lastName, email, phoneNumber, 'Brussels', token, 'male');
