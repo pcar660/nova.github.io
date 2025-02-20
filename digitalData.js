@@ -116,39 +116,6 @@ function stopDynamicGeneration() {
 
 
 
-
-// Request access token: 
-
-async function getAccessToken() {
-  const url = 'https://ims-na1.adobelogin.com/ims/token/v2';
-  const params = new URLSearchParams({
-    grant_type: 'client_credentials',
-    client_id: '1c9d6a97c1034d6091e440e6c43ca7a4',
-    client_secret: 'p8e-E-R-ieiUil3tYO9PWHmxV6GuDQlQ91sk',
-    scope: 'openid,AdobeID,read_organizations,additional_info.projectedProductContext,session'
-  });
-
-  try {
-    const response = await fetch(`${url}?${params.toString()}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    return data.access_token;
-  } catch (error) {
-    console.error('Error fetching access token:', error);
-    throw error;
-  }
-}
-
-
 async function fetchToken() {
   const response = await fetch('/api/getAccessToken');
   const data = await response.json();
@@ -197,7 +164,7 @@ async function sendToAdobeProfileHTTPAPI(novaCrmId, firstName, lastName, email, 
 
         const result = await response.json();
         console.log("Success:", result);
-        return result;
+
     } catch (error) {
         console.error("Error sending data:", error);
         throw error;
