@@ -31,7 +31,7 @@ export default async function handler(req, res) {
     "mailingAddress": { "city": city }
   };
   
-console.log("Request Body Sent:", JSON.stringify(data, null, 2)); // Log the body *being sent*
+console.log("Profile Request Body Sent:", JSON.stringify(data, null, 2)); // Log the body *being sent*
 
   // Send data to Adobe Profile API
   try {
