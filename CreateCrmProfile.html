@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Basic Demo</title>
+    <!--Preconnect and DNS-Prefetch to improve page load time. REPLACE "techmarketingdemos" WITH YOUR OWN AAM PARTNER ID, TARGET CLIENT CODE, AND ANALYTICS TRACKING SERVER-->
+    <link rel="preconnect" href="//dpm.demdex.net">
+    <link rel="preconnect" href="//fast.techmarketingdemos.demdex.net">
+    <link rel="preconnect" href="//techmarketingdemos.demdex.net">
+    <link rel="preconnect" href="//cm.everesttech.net">
+    <link rel="preconnect" href="//techmarketingdemos.tt.omtrdc.net">
+    <link rel="preconnect" href="//techmarketingdemos.sc.omtrdc.net">
+    <link rel="dns-prefetch" href="//dpm.demdex.net">
+    <link rel="dns-prefetch" href="//fast.techmarketingdemos.demdex.net">
+    <link rel="dns-prefetch" href="//techmarketingdemos.demdex.net">
+    <link rel="dns-prefetch" href="//cm.everesttech.net">
+    <link rel="dns-prefetch" href="//techmarketingdemos.tt.omtrdc.net">
+    <link rel="dns-prefetch" href="//techmarketingdemos.sc.omtrdc.net">
+    <!--/Preconnect and DNS-Prefetch-->
+    <!--jQuery or other helper libraries-->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!--/jQuery-->
+    <!--prehiding snippet for Adobe Target with asynchronous tags deployment-->
+    <script>
+        (function(g,b,d,f){(function(a,c,d){if(a){var e=b.createElement("style");e.id=c;e.innerHTML=d;a.appendChild(e)}})(b.getElementsByTagName("head")[0],"at-body-style",d);setTimeout(function(){var a=b.getElementsByTagName("head")[0];if(a){var c=b.getElementById("at-body-style");c&&a.removeChild(c)}},f)})(window,document,"body {opacity: 0 !important}",3E3);
+    </script>
+    <!--/prehiding snippet for Adobe Target with asynchronous tags deployment-->
+    <!--Tags Header Embed Code: REPLACE LINE 39 WITH THE INSTALL CODE FROM YOUR OWN DEVELOPMENT ENVIRONMENT-->
+    <!--<script src="https://assets.adobedtm.com/launch-ENa21cfed3f06f4ddf9690de8077b39e81-development.min.js" async></script> -->
+    <!--/Tags Header Embed Code-->
+    <link rel="stylesheet" href="styles.css">
+
+<script>
+   //prehiding snippet for Adobe Target with asynchronous tags deployment
+   ;(function(win, doc, style, timeout) {
+   var STYLE_ID = 'at-body-style';
+   function getParent() {
+      return doc.getElementsByTagName('head')[0];
+   }
+   function addStyle(parent, id, def) {
+      if (!parent) {
+      return;
+      }
+      var style = doc.createElement('style');
+      style.id = id;
+      style.innerHTML = def;
+      parent.appendChild(style);
+   }
+   function removeStyle(parent, id) {
+      if (!parent) {
+      return;
+      }
+      var style = doc.getElementById(id);
+      if (!style) {
+      return;
+      }
+      parent.removeChild(style);
+   }
+   addStyle(getParent(), STYLE_ID, style);
+   setTimeout(function() {
+      removeStyle(getParent(), STYLE_ID);
+   }, timeout);
+   }(window, document, "body {opacity: 0 !important}", 3000));
+</script>
+
+
+    
+
+
+    
+
+    <script src="cookies.js"></script>
+
+    <!--  Start sedn data to firebase  -->
+
+    <!--  End sedn data to firebase  -->
+
+   <!-- <script src="https://assets.adobedtm.com/81adfcd42355/9bf42ed1119d/launch-c1d777235947-development.min.js" async></script>-->
+<script type="module" src="https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js"></script>
+<script type="module" src="https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js"></script>
+<script type="module" src="firebaseFunctions.js"></script>
+<script type="module" src="digitalData.js"></script> 
+    
+     <!-- <script type="module" src="digitalDataHardCodedProfile.js"></script>-->
+    
+</head>
+<body>
+    <h1>Tags Basic Demo</h1>
+    <p>This is a very simple page to demonstrate basic concepts of tags</p>
+    <button onclick="startDynamicGeneration()">Start Dynamic Generation</button>
+    <button onclick="stopDynamicGeneration()">Stop Dynamic Generation</button>
+    <div class="profile-container">
+        <h2>Generated User Profile</h2>
+        <p><strong>Username:</strong> <span id="username"></span></p>
+        <p><strong>Email:</strong> <span id="email"></span></p>
+        <p><strong>First Name:</strong> <span id="firstName"></span></p>
+        <p><strong>Last Name:</strong> <span id="lastName"></span></p>
+        <p><strong>Last Login:</strong> <span id="lastLogin"></span></p>
+        <p><strong>Age:</strong> <span id="age"></span></p>
+        <p><strong>Phone Number:</strong> <span id="phoneNumber"></span></p>
+    </div>
+    <div class="cookie-container">
+        <h2>Cookies</h2>
+        <div id="cookieContainer"></div>
+    </div>
+</body>
+</html>
