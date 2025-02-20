@@ -174,7 +174,7 @@ async function sendToAdobeProfileHTTPAPI(novaCrmId, firstName, lastName, email, 
 
 // Run Adobe Data Submission
 document.addEventListener("DOMContentLoaded",  function () {
-      const token =  getAccessToken();
+      const token =  fetchToken();
       // call adobe profile
       sendToAdobeProfileHTTPAPI(username, firstName, lastName, email, phoneNumber, 'Brussels', token, 'male');
       saveUserDataFirebase(username, email, firstName, lastName, age, phoneNumber, Date.now());
