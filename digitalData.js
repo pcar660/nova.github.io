@@ -124,60 +124,43 @@ async function fetchToken() {
 }
 
 
-// Send data to adobe profile: 
-
-// Adobe Data Function
-async function sendToAdobeProfileHTTPAPI(novaCrmId, firstName, lastName, email, phone, city, token, gender = null) {
-    const url = 'https://dcs.adobedc.net/collection/73fdb1443d451c866e0218c25c332b84f06ae5e55416f1a1b7da32ec606aa281';
-
-    const uniqueId = Date.now().toString(36) + Math.random().toString(36).substring(2, 8);
-
-    const data = {
-        "_id": uniqueId,
-        "_capgeminiamerptrsd": { "novaCrmId": novaCrmId },
-        "person": {
-            "name": { "firstName": firstName, "lastName": lastName },
-            "gender": gender
-        },
-        "personalEmail": { "address": email },
-        "mobilePhone": { "number": phone },
-        "mailingAddress": { "city": city }
-    };
-
-    console.log("Sending data to Adobe Profile:", JSON.stringify(data, null, 2));
-
-    try {
-        const response = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "sandbox-name": "capgeminibelgium",
-                "Authorization": `Bearer ${token}`,
-                "x-adobe-flow-id": "9d9743c5-27a7-4642-987e-0ce388756ab5"
-            },
-            body: JSON.stringify(data)
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status} - ${await response.text()}`);
-        }
-
-        const result = await response.json();
-        console.log("Success:", result);
-
-    } catch (error) {
-        console.error("Error sending data:", error);
-        throw error;
-    }
-}
 
 
 // Run Adobe Data Submission
-document.addEventListener("DOMContentLoaded",  function () {
-      const token =  fetchToken();
-      // call adobe profile
-      sendToAdobeProfileHTTPAPI(username, firstName, lastName, email, phoneNumber, 'Brussels', token, 'male');
-      saveUserDataFirebase(username, email, firstName, lastName, age, phoneNumber, Date.now());
+document.addEventListener("DOMContentLoaded", async function () {
+    try {
+        const token = await fetchToken(); // Get token from the API
+
+        // Call serverless function to send profile data to Adobe
+        const response = await fetch('/api/sendToAdobeProfile', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                novaCrmId: username,
+                firstName,
+                lastName,
+                email,
+                phone: phoneNumber,
+                city: 'Brussels',
+                token,
+                gender: 'male'
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to send data to Adobe profile');
+        }
+
+        const result = await response.json();
+        console.log("Successfully sent data to Adobe:", result);
+
+        saveUserDataFirebase(username, email, firstName, lastName, age, phoneNumber, Date.now());
+
+    } catch (error) {
+        console.error("Error during Adobe profile data submission:", error);
+    }
 });
 
 
