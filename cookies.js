@@ -24,5 +24,5 @@ function displayCookies(cookieList) {
 
 // Read cookies on page load
 document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(readCookies, 10000); // Read cookies after 10 seconds
+    //setTimeout(readCookies, 10000); // Read cookies after 10 seconds
 });
