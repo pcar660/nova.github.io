@@ -115,9 +115,6 @@ function stopDynamicGeneration() {
 
 
 
-// Attach functions to the global scope
-window.startDynamicGeneration = startDynamicGeneration;
-window.stopDynamicGeneration = stopDynamicGeneration;
 
 
 // Request access token: 
@@ -152,17 +149,25 @@ async function getAccessToken() {
 }
 
 
+async function fetchToken() {
+  const response = await fetch('/api/getAccessToken');
+  const data = await response.json();
+  console.log('Access Token:', data.access_token);
+ return data.access_token;
+}
+
+
 // Send data to adobe profile: 
 
 // Adobe Data Function
-async function sendToAdobeProfileHTTPAPI(novaCrmId, firstName, lastName, email, phone, city, gender = null) {
-    const url = "https://dcs.adobedc.net/collection/73fdb1443d451c866e0218c25c332b84f06ae5e55416f1a1b7da32ec606aa281?syncValidation=true";
+async function sendToAdobeProfileHTTPAPI(novaCrmId, firstName, lastName, email, phone, city, token, gender = null) {
+    const url = 'https://dcs.adobedc.net/collection/73fdb1443d451c866e0218c25c332b84f06ae5e55416f1a1b7da32ec606aa281';
 
     const uniqueId = Date.now().toString(36) + Math.random().toString(36).substring(2, 8);
 
     const data = {
         "_id": uniqueId,
-        "_capgeminiamerptrsd": { "novacrmId": novaCrmId },
+        "_capgeminiamerptrsd": { "novaCrmId": novaCrmId },
         "person": {
             "name": { "firstName": firstName, "lastName": lastName },
             "gender": gender
@@ -172,7 +177,7 @@ async function sendToAdobeProfileHTTPAPI(novaCrmId, firstName, lastName, email, 
         "mailingAddress": { "city": city }
     };
 
-    console.log("Sending data to adobe profile:", JSON.stringify(data, null, 2));
+    console.log("Sending data to Adobe Profile:", JSON.stringify(data, null, 2));
 
     try {
         const response = await fetch(url, {
@@ -180,31 +185,39 @@ async function sendToAdobeProfileHTTPAPI(novaCrmId, firstName, lastName, email, 
             headers: {
                 "Content-Type": "application/json",
                 "sandbox-name": "capgeminibelgium",
-                "datasetId": "678b7184a9ddf22aee102b95",
-                "flowId": "9d9743c5-27a7-4642-987e-0ce388756ab5",
-                "imsOrgID": "9D6FC4045823262D0A495CC8@AdobeOrg",
-                 "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsIng1dSI6Imltc19uYTEta2V5LWF0LTEuY2VyIiwia2lkIjoiaW1zX25hMS1rZXktYXQtMSIsIml0dCI6ImF0In0.eyJpZCI6IjE3Mzk5NDg0MDk0NTVfZWM1MjI0ZDUtMTVkMi00ZmEyLWEwM2ItNWYwN2MwZmY1M2Q2X3ZhNmMyIiwib3JnIjoiOUQ2RkM0MDQ1ODIzMjYyRDBBNDk1Q0M4QEFkb2JlT3JnIiwidHlwZSI6ImFjY2Vzc190b2tlbiIsImNsaWVudF9pZCI6IjFjOWQ2YTk3YzEwMzRkNjA5MWU0NDBlNmM0M2NhN2E0IiwidXNlcl9pZCI6IjBFODAxRUQ5Njc4N0YxNDgwQTQ5NUVFN0B0ZWNoYWNjdC5hZG9iZS5jb20iLCJhcyI6Imltcy1uYTEiLCJhYV9pZCI6IjBFODAxRUQ5Njc4N0YxNDgwQTQ5NUVFN0B0ZWNoYWNjdC5hZG9iZS5jb20iLCJjdHAiOjMsIm1vaSI6IjhhZWZmZDc0IiwiZXhwaXJlc19pbiI6Ijg2NDAwMDAwIiwic2NvcGUiOiJvcGVuaWQsc2Vzc2lvbixBZG9iZUlELHJlYWRfb3JnYW5pemF0aW9ucyxhZGRpdGlvbmFsX2luZm8ucHJvamVjdGVkUHJvZHVjdENvbnRleHQiLCJjcmVhdGVkX2F0IjoiMTczOTk0ODQwOTQ1NSJ9.J-GPQxiAGbDODuUeGo7M0SkxOMUy7mLH8j9umUMcm2uvgszIDHy1gvQ9Ez97-Rbhh9PplCZFSQ5zLC-A_2_UmfUXEuD0Hun_UdLNyWzLL2aUzWQ5fKc_ahBhnlObFUgyTNoZvrlxT3nPp7SxTRY8VuzeN3KF6NOQOPO8jCaVLxBgGKM9sZgNFk544GWmUibNB6NGbDarN6l2CF-3FLzUG-w2Pb6CHQsMNNcXOVZeSn9DejrA3qF0vxOW4y_ddKOuvxld2txmTK_3xQPNBL4nxryP9b5O-1VvB1W7hW68FbH3ysrB5_lxtc0dKkXu3y8CQGlxQwSiAvD5smuTyf6qXg"
+                "Authorization": `Bearer ${token}`,
+                "x-adobe-flow-id": "9d9743c5-27a7-4642-987e-0ce388756ab5"
             },
             body: JSON.stringify(data)
         });
 
-        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status} - ${await response.text()}`);
+        }
 
         const result = await response.json();
         console.log("Success:", result);
+        return result;
     } catch (error) {
         console.error("Error sending data:", error);
+        throw error;
     }
 }
 
+
 // Run Adobe Data Submission
 document.addEventListener("DOMContentLoaded", function () {
-   //getAccessToken().then(token => console.log('Access Token:', token));
- 
-// call adobe profile
-sendToAdobeProfileHTTPAPI(username, firstName, lastName, email, phoneNumber, 'Brussels', 'male');
-    saveUserDataFirebase(username, email, firstName, lastName, age, phoneNumber, Date.now());
+        const token = await getAccessToken();
+      // call adobe profile
+     await sendToAdobeProfileHTTPAPI(username, firstName, lastName, email, phoneNumber, 'Brussels', token, 'male');
+         saveUserDataFirebase(username, email, firstName, lastName, age, phoneNumber, Date.now());
 });
+
+
+
+// Attach functions to the global scope
+window.startDynamicGeneration = startDynamicGeneration;
+window.stopDynamicGeneration = stopDynamicGeneration;
 
 // Delete all cookie 
 deleteCookies();
