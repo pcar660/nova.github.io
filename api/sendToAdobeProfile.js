@@ -31,7 +31,6 @@ export default async function handler(req, res) {
     "mailingAddress": { "city": city }
   };
   
-console.log("Profile Request Body Sent:", JSON.stringify(data, null, 2)); // Log the body *being sent*
 
   // Send data to Adobe Profile API
   try {
@@ -51,7 +50,7 @@ console.log("Profile Request Body Sent:", JSON.stringify(data, null, 2)); // Log
     }
 
     const result = await response.json();
-    return res.status(200).json({ success: true, result });
+       return res.status(200).json({ success: true, result, sentData: data }); // Added sentData
 
   } catch (error) {
     console.error('Error sending data to Adobe:', error);
