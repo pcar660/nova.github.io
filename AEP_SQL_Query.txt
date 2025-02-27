@@ -1,0 +1,40 @@
+
+Query: 
+select eventType from nova_web_event_v2 where eventType  <> 'commerce.productListAdds'
+
+select * from nova_web_event_v2 where eventType  NOT IN ( 'commerce.productListAdds',  '%web.webpagedetails.pageViews%', 'web.webinteraction.linkClicks')
+
+select * from nova_web_event_v2 where eventType  NOT IN ( 'commerce.productListAdds',  'web.webinteraction.linkClicks') ORDER BY timestamp DESC;
+
+select * from nova_web_event_v2 where eventType  NOT IN ( 'commerce.productListAdds',  'web.webinteraction.linkClicks') ORDER BY timestamp ASC;
+
+
+Output:
+select * from push_sdk_experience_event WHERE ARRAY_CONTAINS(identityMap['ECID'], MAP('id', '73747160645486974836086027323144823468'));
+
+
+SELECT *
+FROM push_sdk_experience_event
+WHERE ARRAY_CONTAINS(identityMap['ECID'], STRUCT('73747160645486974836086027323144823468' AS id));
+
+SELECT *
+FROM push_sdk_experience_event
+WHERE ARRAY_CONTAINS(identityMap['ECID'], STRUCT('73747160645486974836086027323144823468' AS id, NULL AS authenticatedState, NULL AS primary));
+
+
+SELECT *
+FROM push_sdk_experience_event
+WHERE ARRAY_CONTAINS(identityMap['ECID'], '{(ambiguous, 73747160645486974836086027323144823468, t)}');
+
+SELECT *
+FROM push_sdk_experience_event
+WHERE EXISTS (
+	SELECT 1
+	FROM UNNEST(identityMap['ECID']) AS ecid_string
+	WHERE ecid_string LIKE '%34026952640605236528718207667809601762%'
+);
+
+SELECT identityMap['ECID'].0
+FROM push_sdk_experience_event
+LIMIT 10;
+
