@@ -38,3 +38,18 @@ SELECT identityMap['ECID'].0
 FROM push_sdk_experience_event
 LIMIT 10;
 
+INSERT INTO novaProfilePersonlizeDataCampaignFeb2025_v1(novaCrmId, 
+    productName_novaProfilePersonlizeDataCampaignFeb2025_v1, 
+    count_novaProfilePersonlizeDataCampaignFeb2025_v1) 
+  SELECT
+    _capgeminiamerptrsd.novaEventProfileCRMId,
+    _capgeminiamerptrsd.novaProductName,
+    COUNT(*)
+FROM
+    nova_web_event_v2
+WHERE
+    timeStamp >= '2025-02-25 00:00:00'
+GROUP BY
+    _capgeminiamerptrsd.novaProductName,
+    _capgeminiamerptrsd.novaEventProfileCRMId;
+
