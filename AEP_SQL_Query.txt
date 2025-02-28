@@ -53,3 +53,9 @@ GROUP BY
     _capgeminiamerptrsd.novaProductName,
     _capgeminiamerptrsd.novaEventProfileCRMId;
 
+
+
+SELECT *
+FROM profile_snapshot_export_cd1fc611_b3c4_476c_9f3a_e5c314627706
+WHERE PushNotificationDetails IS NOT NULL;
+
