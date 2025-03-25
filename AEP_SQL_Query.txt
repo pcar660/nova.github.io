@@ -1,3 +1,28 @@
+query : To create derived data set:
+CREATE TABLE test_derived_datasets ( id text primary identity namespace 'IDFA') WITH(LABEL='PROFILE');
+
+----------------------
+
+CREATE TABLE test_derived_datasets ( id text primary identity namespace 'IDFA') WITH(LABEL='PROFILE');
+
+SELECT eventType, COUNT(*) AS eventCount FROM nova_web_event_v2 GROUP BY eventType;
+
+--------------------------
+SELECT eventType, COUNT(*) AS eventCount FROM nova_web_event_v2 GROUP BY eventType;
+
+SELECT DISTINCT _capgeminiamerptrsd.novaEventProfileCRMId
+FROM nova_web_event_v2
+WHERE eventType = 'web.formFilledOut';
+
+-----------------
+
+INSERT INTO test_derived_datasets
+SELECT DISTINCT _capgeminiamerptrsd.novaEventProfileCRMId as id
+FROM nova_web_event_v2
+WHERE eventType = 'web.formFilledOut' and  _capgeminiamerptrsd.novaEventProfileCRMId is not null;-
+
+
+
 
 Query: 
 select eventType from nova_web_event_v2 where eventType  <> 'commerce.productListAdds'
