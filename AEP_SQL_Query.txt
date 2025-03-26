@@ -1,3 +1,18 @@
+CREATE AUDIENCE sql_nova_crm_audience_table WITH (primary_identity='_capgeminiamerptrsd.novaEventProfileCRMId', identity_namespace='novaCrmId',schema=sql_nova_crm_audience_schema) AS SELECT DISTINCT _capgeminiamerptrsd.novaEventProfileCRMId FROM nova_web_event_v2 WHERE eventType = 'web.formFilledOut';
+------------------------------
+
+
+CREATE TABLE test_derived_datasets_v5 ( novaCrmId text primary identity namespace 'novaCrmId') WITH(LABEL='PROFILE');
+
+
+
+ SHOW TABLES
+
+Drop table test_derived_datasets
+
+-----------------
+
+
 query : To create derived data set:
 CREATE TABLE test_derived_datasets ( id text primary identity namespace 'IDFA') WITH(LABEL='PROFILE');
 
