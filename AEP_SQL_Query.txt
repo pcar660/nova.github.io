@@ -1,3 +1,26 @@
+
+
+
+---- Important query which work--------
+---Create the data ------
+CREATE TABLE test_derived_datasets_v5 ( novaCrmId text primary identity namespace 'novaCrmId') WITH(LABEL='PROFILE');
+----------------------
+
+------Ingest the data ------------
+
+INSERT INTO test_derived_datasets_v5
+SELECT STRUCT(
+    novaCrm_Id AS novaCrmId) AS _capgeminiamerptrsd
+FROM
+    (SELECT DISTINCT
+     A._capgeminiamerptrsd.novaEventProfileCRMId AS novaCrm_Id
+FROM nova_web_event_v2 A
+WHERE A.eventType = 'web.formFilledOut' and A._capgeminiamerptrsd.novaEventProfileCRMId  is not null) AS D;
+
+---------------
+_______________________--_________________
+
+
 CREATE AUDIENCE sql_nova_crm_audience_table WITH (primary_identity='_capgeminiamerptrsd.novaEventProfileCRMId', identity_namespace='novaCrmId',schema=sql_nova_crm_audience_schema) AS SELECT DISTINCT _capgeminiamerptrsd.novaEventProfileCRMId FROM nova_web_event_v2 WHERE eventType = 'web.formFilledOut';
 ------------------------------
 
