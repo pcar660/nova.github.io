@@ -1,4 +1,37 @@
 
+This did not work:
+
+CREATE AUDIENCE query_service_audience_1
+WITH (primary_identity='hashed_email_id', identity_namespace='hashedEmailId')
+AS ( SELECT hashed_email AS hashed_email_id
+        FROM (
+
+          select _belgiantrain.Identification.hashed_email_id hashed_email,
+            timestamp eventtime
+            from sales_information_dataset_new 
+            where _belgiantrain."Source" = 'PPSE' and _belgiantrain.ValidFrm >= '2025-03-27')
+        GROUP BY hashed_email_id)
+
+
+----------
+
+SELECT hashed_email AS hashed_email_id,
+               last(eventtime) AS last_eventtime
+        FROM (
+
+          select _belgiantrain.Identification.hashed_email_id hashed_email,
+            timestamp eventtime
+            from sales_information_dataset_new 
+            where _belgiantrain."Source" = 'PPSE' and _belgiantrain.ValidFrm >= '2025-03-27'
+
+
+        )
+        GROUP BY hashed_email_id
+
+----------
+
+
+
 
 
 ---- Important query which work--------
