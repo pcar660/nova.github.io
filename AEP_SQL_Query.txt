@@ -1,3 +1,29 @@
+----
+Query work in NMBS ACC
+-- Create the tabel
+CREATE TABLE query_service_rivWork_audience_2 (hashed_email_id text primary identity namespace 'hashedEmailId', segmentName text, creationtDate date ) WITH(LABEL='PROFILE')
+
+-- Insert the data
+INSERT INTO query_service_rivWork_audience_2
+SELECT 
+    STRUCT(
+        hashedEmail AS hashed_email_id,
+        'RIV Work' AS segmentName,
+        current_date AS creationtDate
+    ) AS _belgiantrain
+FROM (
+    SELECT 
+        _belgiantrain.Identification.hashed_email_id AS hashedEmail
+    FROM 
+        sales_information_dataset_new
+    WHERE 
+        _belgiantrain."Source" = 'PPSE' 
+        AND _belgiantrain.ValidFrm >= '2025-03-27'
+    GROUP BY 
+        hashedEmail
+);
+
+--------
 
 This did not work:
 
